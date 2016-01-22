@@ -1,17 +1,26 @@
 Flyover
-------- 
+======= 
 
 What's that plane flying overhead? 
 
 I live underneath a flight path for airplanes arriving at LaGuardia Airport in New York. When I hear the planes, I get curious. Where are those people coming from? I wrote this to find out.
 
 Hardware Setup
-==============
+--------------
 
-details TK
+- an SDR antenna
+- a Raspberry Pi
+- a 16x8 LED matrix ([e.g.](https://www.adafruit.com/products/2037))
+
+TODO
+----
+- only include flights going to LGA overhead, with a polygon (maybe excluding flights overhead above a certain altitude)
+   (alternatively, only include flights going to LGA by combining the two scripts that determine the nearest flight and determine where it's going to INSTEAD find the nearest flight going to LGA.)
+- look up airport names for non-US airports and display them too. (Where right now we'd display EGLL, we should instead display EGLL (London Heathrow, UK)).
+- sweet ascii art header for this readme
 
 Theoretically Askable Questions
-===============================
+-------------------------------
 
 *Are you a NIMBY who is opposed to noise, airplanes, travel, etc.?*
 
@@ -23,15 +32,13 @@ I do have a cat named Nimby though.
 
 No, they're not. Please don't contact me anymore.
 
-TODO
-====
-- only include flights going to LGA overhead, with a polygon (maybe excluding flights overhead above a certain altitude)
-   (alternatively, only include flights going to LGA by combining the two scripts that determine the nearest flight and determine where it's going to INSTEAD find the nearest flight going to LGA.)
-- look up airport names for non-US airports and display them too. (Where right now we'd display EGLL, we should instead display EGLL (London Heathrow, UK)).
+*Why isn't this Python 3 compatible?*
+
+I couldn't get the Adafruit Python LED Backpack library working in Python 3. That's probably because I'm bad at Python, not on them.
 
 I would like to thank the Academy...
-====================================
-This project would be impossible without:
+------------------------------------
+This project would have been impossible without:
 
 1. the maintainers of [dump1090](https://github.com/antirez/dump1090) and the [Mutability fork](https://github.com/mutability/dump1090).
 2. the maintainers of the Virtual Radar Server flightnumbers dump.
