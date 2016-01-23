@@ -1,5 +1,15 @@
-Flyover
-======= 
+      ___                                   ___                        ___           ___     
+     /  /\                      ___        /  /\          ___         /  /\         /  /\    
+    /  /:/_                    /__/|      /  /::\        /__/\       /  /:/_       /  /::\   
+   /  /:/ /\  ___     ___     |  |:|     /  /:/\:\       \  \:\     /  /:/ /\     /  /:/\:\  
+  /  /:/ /:/ /__/\   /  /\    |  |:|    /  /:/  \:\       \  \:\   /  /:/ /:/_   /  /:/~/:/  
+ /__/:/ /:/  \  \:\ /  /:/  __|__|:|   /__/:/ \__\:\  ___  \__\:\ /__/:/ /:/ /\ /__/:/ /:/___
+ \  \:\/:/    \  \:\  /:/  /__/::::\   \  \:\ /  /:/ /__/\ |  |:| \  \:\/:/ /:/ \  \:\/:::::/
+  \  \::/      \  \:\/:/      ~\~~\:\   \  \:\  /:/  \  \:\|  |:|  \  \::/ /:/   \  \::/~~~~ 
+   \  \:\       \  \::/         \  \:\   \  \:\/:/    \  \:\__|:|   \  \:\/:/     \  \:\     
+    \  \:\       \__\/           \__\/    \  \::/      \__\::::/     \  \::/       \  \:\    
+     \__\/                                 \__\/           ~~~~       \__\/         \__\/    
+
 
 What's that plane flying overhead? 
 
@@ -12,12 +22,14 @@ Hardware Setup
 - a Raspberry Pi
 - a 16x8 LED matrix ([e.g.](https://www.adafruit.com/products/2037))
 
+How does this work?
+-------------------
+
+On the Raspberry Pi, we're running [Dump1090](https://github.com/mutability/dump1090) to handle the hard work of determining what planes are in the sky nearby. Piggybacking on Dump1090's JSON, `dump1090_to_nearest_flight.py` outputs the flight number and change-in-altitude of the nearest plane, optionally restricting that plane to a given area and/or altitude . `flight_number_to_departure_airport.py` translates that flight number, using a database, to the mostly likely non-NYC airport that is that flight's departure airport or destination. `display_letters.py` displays that airport's code (and, maybe, eventually, the city name for non-US airports). 
+
 TODO
 ----
-- only include flights going to LGA overhead, with a polygon (maybe excluding flights overhead above a certain altitude)
-   (alternatively, only include flights going to LGA by combining the two scripts that determine the nearest flight and determine where it's going to INSTEAD find the nearest flight going to LGA.)
 - look up airport names for non-US airports and display them too. (Where right now we'd display EGLL, we should instead display EGLL (London Heathrow, UK)).
-- sweet ascii art header for this readme
 
 Theoretically Askable Questions
 -------------------------------

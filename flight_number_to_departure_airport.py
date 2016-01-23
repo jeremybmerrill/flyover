@@ -34,7 +34,7 @@ class Flyover:
       print("WARN: %s matches for %s: %s" % (len(flight_rows), flight_number, '|'.join(flight_rows) ), file=sys.stderr)
     if len(flight_rows) < 1: 
       print("WARN: zero matches for %s" % flight_number, file=sys.stderr)
-    if not flight_rows[0]:
+    if not flight_rows:
       return 
     route = flight_rows[0].split(",")[-1]
     
