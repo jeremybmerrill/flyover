@@ -13,19 +13,21 @@
 
 What's that plane flying overhead? 
 
-I live underneath a flight path for airplanes arriving at LaGuardia Airport in New York. When I hear the planes, I get curious. Where are those people coming from? I wrote this to find out.
-
-Hardware Setup
---------------
-
-- an SDR antenna
-- a Raspberry Pi
-- a 16x8 LED matrix ([e.g.](https://www.adafruit.com/products/2037))
+I live underneath a flight path for airplanes arriving at LaGuardia Airport in New York. When I hear the planes, I get curious: where are those people coming from? I wrote this to find out.
 
 How does this work?
 -------------------
 
 On the Raspberry Pi, we're running [Dump1090](https://github.com/mutability/dump1090) to handle the hard work of determining what planes are in the sky nearby. Piggybacking on Dump1090's JSON, `dump1090_to_nearest_flight.py` outputs the flight number and change-in-altitude of the nearest plane, optionally restricting that plane to a given area and/or altitude . `flight_number_to_departure_airport.py` translates that flight number, using a database, to the mostly likely non-NYC airport that is that flight's departure airport or destination. `display_letters.py` displays that airport's code (and, maybe, eventually, the city name for non-US airports). 
+
+Hardware Setup
+--------------
+
+- an SDR antenna
+- a Raspberry Pi 2
+- a 16x8 LED matrix ([e.g.](https://www.adafruit.com/products/2037))
+- some jumpers to connect the LED matrix to the Raspberry Pi
+- a soldering iron to assemble the LED matrix
 
 TODO
 ----
