@@ -14,7 +14,16 @@ class Flyover:
 
   @classmethod
   def get_nearest_airplane(self, options):
-    location =      requests.get("http://%s/dump1090/data/receiver.json" % options.host).json()
+    if options.location:
+      lat, lon = options.location.split(",")
+      location = {"lon": float(lon),"lat": float(lat)}
+    else:
+      location =      requests.get("http://%s/dump1090/data/receiver.json" % options.host).json()
+      try: 
+        location["lat"]
+      except KeyError, e:
+        raise(KeyError("Your Dump1090 installation doesn't disclose its location. Specify your location with the --location option."))
+        
     aircraft_resp = requests.get("http://%s/dump1090/data/aircraft.json" % options.host).json()
     flights = aircraft_resp["aircraft"]
     flights = [f for f in flights if "flight" in f and self.flight_num_re.match(f["flight"].strip()) and f["seen"] < 60] 
@@ -69,6 +78,10 @@ if __name__ == "__main__":
                       help="path to geojson of a geographic constraint for aircraft",
                       required=False,
                       default=None)
+  parser.add_argument("-l", '--location',
+                      help="Your location, in \"lat,long\" format. E.g. \"40.612345,-73.912345\" ",
+                      required=False,
+                      default=None)  
   # parser.add_argument('-h', '--help',
   #                     help="Display this screen", )
   args = parser.parse_args()
