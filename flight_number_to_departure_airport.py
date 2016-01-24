@@ -67,4 +67,6 @@ class Flyover:
 if __name__ == "__main__":
   # doesn't support quotes in input because naively splits on whitespace
   stdin = " ".join(sys.stdin.readlines()).split()
+  if not stdin:
+    print('')
   print(Flyover.where(stdin[0], int(stdin[1]) )) # actual output
