@@ -35,6 +35,11 @@ class Flyover:
     us_airport_match = re.match("K([A-Z][A-Z][A-Z])", airport[0:4])
     if us_airport_match:
       self.literally_show(us_airport_match.groups(0)[0])
+    elif airport[0:4] in ('CYYZ', 'CYUL', 'CYOW'):
+      self.literally_show(airport[1:4]) # Canada is okay too!
+    elif airport[0:4] == "TNCA":
+      self.literally_show(airport[1:4]) # Aruba
+
     else:
       self.literally_show('')
       return
