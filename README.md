@@ -55,7 +55,7 @@ I would like to thank the Academy...
 This project would have been impossible without:
 
 1. the maintainers of [dump1090](https://github.com/antirez/dump1090) and the [Mutability fork](https://github.com/mutability/dump1090).
-2. the maintainers of the Virtual Radar Server flightnumbers dump.
+2. the maintainers of the Virtual Radar Server [FlightNumbers dump](http://www.virtualradarserver.co.uk/FlightRoutes.aspx).
 3. @calus at the FlightAware forums who [pointed me there](http://discussions.flightaware.com/ads-b-flight-tracking-f21/mapping-n-numbers-to-departure-airports-t36511.html).
 4. Adafruit for their cool hardware and libraries.
 5. [Sam Keddy](http://samkeddy.com/) who created the Thintel font I'm using.
