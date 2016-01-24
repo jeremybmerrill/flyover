@@ -73,4 +73,4 @@ if __name__ == "__main__":
   #                     help="Display this screen", )
   args = parser.parse_args()
 
-  print(Flyover.get_nearest_airplane(args))
+  print(Flyover.get_nearest_airplane(args) or '')
