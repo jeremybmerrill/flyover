@@ -17,7 +17,7 @@ class Flyover:
     location =      requests.get("http://%s/dump1090/data/receiver.json" % options.host).json()
     aircraft_resp = requests.get("http://%s/dump1090/data/aircraft.json" % options.host).json()
     flights = aircraft_resp["aircraft"]
-    flights = [f for f in flights if "flight" in f and self.flight_num_re.match(f["flight"].strip()) ] 
+    flights = [f for f in flights if "flight" in f and self.flight_num_re.match(f["flight"].strip()) and f["seen"] < 60] 
     def distance(f):
       return ((f.get("lat", 0) - location["lat"]) ** 2 + (f.get("lon", 0) - location["lon"]) ** 2) ** 0.5
 
