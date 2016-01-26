@@ -39,20 +39,10 @@ Set up SD Card with operating system
 ------------------------------------
 
 1.  download the Raspbian operating system from here [https://www.raspberrypi.org/downloads/raspbian/](https://www.raspberrypi.org/downloads/raspbian/), current version is Jessie
-
 2.  once it's downloaded, unzip it, you should get an .img file
-
 3.  now we need to copy it to the SD Card, but we can't just drag-and-drop it, so follow these instructions:
-
-    a.  plug the SD card into the computer using a microSD reader (or,
-        > more likely, a microSD-to-SD adapter and an SD card reader
-
-    b.  run this command on Linux or Mac: \$ sudo dd bs=4M
-        > if=2015-11-21-raspbian-jessie.img of=/dev/mmcblk0\
-        > on windows, there's probably an equivalent, but I don't know
-        > what it is. It's definitely doable and not terribly difficult
-        > though.
-
+    a.  plug the SD card into the computer using a microSD reader (or, more likely, a microSD-to-SD adapter and an SD card reader
+    b.  run this command on Linux or Mac: `\$ sudo dd bs=4M if=2015-11-21-raspbian-jessie.img of=/dev/mmcblk0` on windows, there's probably an equivalent, but I don't know what it is. It's definitely doable and not terribly difficult though.
 4.  now just insert the card in the Raspberry Pi
 
 Connecting Your Computer to the Raspberry Pi
@@ -61,32 +51,27 @@ Connecting Your Computer to the Raspberry Pi
 now we have to figure out how to talk to the raspberry pi.
 
 1.  plug it all in. don't worry about the SDR antenna or the display yet. Just plug the SD card into the Raspberry Pi and plug the power adapter into the Pi (and into the wall). The lights on the Raspberry Pi should start blinking.
-
-2.  Open the command line on Linux or Mac (if you use Windows, download PuTTY and use that) and type ssh pi@raspberrypi.local
-
-3.  Enter the password raspberry.
-
+2.  Open the command line on Linux or Mac (if you use Windows, download PuTTY and use that) and type `ssh pi@raspberrypi.local`
+3.  Enter the password `raspberry`.
 4.  You should now see a prompt that begins with \`pi@raspberrypi\`
 
-If you get an error message like: ssh: Could not resolve hostname
-raspberrypi4.local: Name or service not known
+If you get an error message like: `ssh: Could not resolve hostname
+raspberrypi4.local: Name or service not known`
 
 That means that your home network isn't set up to route via Avahi.
 You'll need to find the Raspberry Pi's IP address directly. You'll need
-to log into your router (probably at http://192.168.1.1), view the list
+to log into your router (probably at [http://192.168.1.1](http://192.168.1.1)), view the list
 of existing DHCP leases, and find the one belonging to your Raspberry
 Pi. I can't give you more specific instructions because it depends on
-your router version. It will probably be something like 192.168.1.xxx,
-where xxx is a number less than 255. It might also be something like
-10.xxx.xxx.xxx.
+your router version. It will probably be something like `192.168.1.xxx`,
+where `xxx` is a number less than 255. It might also be something like
+`10.xxx.xxx.xxx`
 
 Once you find it, try this:
 
-1.  Open the command line on Linux or Mac (if you use Windows, download PuTTY and use that) and type ssh pi@raspberrypi.local
-
-2.  Enter the password raspberry.
-
-3.  You should now see a prompt that begins with \`pi@raspberrypi\`
+1.  Open the command line on Linux or Mac (if you use Windows, download PuTTY and use that) and type `ssh pi@192.168.1.xxx`
+2.  Enter the password `raspberry`.
+3.  You should now see a prompt that begins with `pi@raspberrypi`
 
 Installing dump1090
 -------------------
@@ -101,29 +86,27 @@ You should run these commands in the command-line window that begins
 with \`pi@raspberrypi\`. Don't type the \$. (It just signifies that
 you're in the command line.)
 
-\$ wget
-https://github.com/mutability/mutability-repo/releases/download/v0.1.0/mutability-repo\_0.1.0\_armhf.deb\
-\$ sudo dpkg -i mutability-repo\_0.1.0\_armhf.deb
+`\$ wget
+https://github.com/mutability/mutability-repo/releases/download/v0.1.0/mutability-repo\_0.1.0\_armhf.deb`
+`\$ sudo dpkg -i mutability-repo\_0.1.0\_armhf.deb`
 
-\$ sudo apt-get update && sudo apt-get install dump1090-mutability
+`\$ sudo apt-get update && sudo apt-get install dump1090-mutability`
 
 Now we have to configure the dump1090 software. The defualt options are
 all okay, but you need to fill out the latitude/longitude of the spot
-you're in now. Google Maps will tell you.\
-\$ sudo dpkg-reconfigure dump1090-mutability
+you're in now. Google Maps will tell you. Navigate with the arrow keys and accept with Enter\
+`\$ sudo dpkg-reconfigure dump1090-mutability`
 
-\$ sudo apt-get install lighttpd && sudo lighty-enable-mod dump1090
+`\$ sudo apt-get install lighttpd && sudo lighty-enable-mod dump1090`
 
 Now we're doing some detailed, boring stuff to make the hardware work.
 
-\$ echo "blacklist dvb\_usb\_rtl28xxu" | sudo tee
-/etc/modprobe.d/blacklist.conf
+`\$ echo "blacklist dvb\_usb\_rtl28xxu" | sudo tee
+/etc/modprobe.d/blacklist.conf`
 
-\$ echo "SUBSYSTEMS=="usb", ATTRS{idVendor}=="0bda",
-ATTRS{idProduct}=="2838", MODE:="0666" -" | sudo tee
-/etc/udev/rules.d/50-sdr.rules
+`\$ echo "SUBSYSTEMS=="usb", ATTRS{idVendor}=="0bda", ATTRS{idProduct}=="2838", MODE:="0666" -" | sudo tee /etc/udev/rules.d/50-sdr.rules`
 
-\$ sudo service udev restart
+`\$ sudo service udev restart`
 
 Now, you should be able to go to
 [http://raspberrypi.local:8080](http://raspberrypi.local:8080) or
@@ -137,16 +120,16 @@ Installing Flyover
 Run these commands, still on the command prompt on your computer that
 represents the Raspberry Pi.
 
-\$ sudo apt-get install python-smbus python-imaging
+`\$ sudo apt-get install python-smbus python-imaging`
 
-\$ wget
-[https://github.com/jeremybmerrill/flyover/archive/master.zip](https://github.com/jeremybmerrill/flyover/archive/master.zip)
+`\$ wget
+[https://github.com/jeremybmerrill/flyover/archive/master.zip](https://github.com/jeremybmerrill/flyover/archive/master.zip)`
 
-\$ unzip master.zip
+`\$ unzip master.zip`
 
-\$ sudo mv flyover/99-flyover.cron /etc/cron.d/
+`\$ sudo mv flyover/99-flyover.cron /etc/cron.d/`
 
-\$ sudo mv flyover/89-dump1090.conf /etc/lighttpd/sites-enabled/
+`\$ sudo mv flyover/89-dump1090.conf /etc/lighttpd/sites-enabled/`
 
 Finishing up
 -------------
@@ -159,7 +142,7 @@ Hook it up to the Pi. (Pin-to-pin instructions to come)
 
 Almost there...
 ============
-restart the Pi. It should just work (assuming there's a plane flying overhead!!). It might not. Open an issue with
+Restart the Pi. (Either type `sudo reboot` or just unplug it and plug it back in again) It should just work (assuming there's a plane flying overhead!!). It might not. Open an issue with
 the error if it doesn't... 
 
 Disclaimer
