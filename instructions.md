@@ -24,32 +24,13 @@ You can also use [FlightAware's shopping list](https://flightaware.com/adsb/piaw
 -   [Raspberry Pi 2](https://www.adafruit.com/products/2358)
 
     -   [Power adapter](https://www.adafruit.com/products/1995)
-
-    -   [Wi-Fi adapter
-        > ](http://www.amazon.com/gp/product/B003MTTJOY?psc=1&redirect=true&ref_=od_aui_detailpages00)(unless
-        > you can reach your device with an ethernet cable, in which
-        > case you don't need this)
-
-    -   [microSD
-        > card](http://www.bestbuy.com/site/samsung-evo-32gb-microsdhc-class-10-uhs-1-memory-card-red-white/4568505.p?id=1219769553726&skuId=4568505&cmp=RMX)
-
-    -   an ethernet cable (for initial setup, if you buy a Wi-Fi
-        > adapter, you'll only need the cable for a few minutes, so you
-        > can borrow it from something)
-
--   [Software-Defined Radio stick and
-    > antenna](https://www.adafruit.com/products/1497)
-
--   [16x8 LED matrix screen](https://www.adafruit.com/products/2037)
-    > (or substitute your own display, this one wasn't the best choice
-    > for this project, since it can only display three characters)
-
--   [Jumpers](https://www.adafruit.com/products/266) (or a "[Pi
-    > Cobbler](https://www.adafruit.com/products/2029)", breadboard and
-    > male-to-male jumpers)
-
--   [Soldering Iron](https://www.adafruit.com/products/180) and
-    > [Solder](https://www.adafruit.com/products/1886)
+    -   [Wi-Fi adapter](http://www.amazon.com/gp/product/B003MTTJOY?psc=1&redirect=true&ref_=od_aui_detailpages00) (unless you can reach your device with an ethernet cable, in which case you don't need this)
+    -   [microSD card](http://www.bestbuy.com/site/samsung-evo-32gb-microsdhc-class-10-uhs-1-memory-card-red-white/4568505.p?id=1219769553726&skuId=4568505&cmp=RMX)
+    -   an ethernet cable (for initial setup, if you buy a Wi-Fi adapter, you'll only need the cable for a few minutes, so you can borrow it from something)
+-   [Software-Defined Radio stick and antenna](https://www.adafruit.com/products/1497)
+-   [16x8 LED matrix screen](https://www.adafruit.com/products/2037) (or substitute your own display, this one wasn't the best choice for this project, since it can only display three characters)
+-   [Jumpers](https://www.adafruit.com/products/266) (or a "[Pi Cobbler](https://www.adafruit.com/products/2029)", breadboard and male-to-male jumpers)
+-   [Soldering Iron](https://www.adafruit.com/products/180) and [Solder](https://www.adafruit.com/products/1886)
 
 Setup
 =====
@@ -57,14 +38,11 @@ Setup
 Set up SD Card with operating system
 ------------------------------------
 
-1.  download the Raspbian operating system from here
-    > [https://www.raspberrypi.org/downloads/raspbian/](https://www.raspberrypi.org/downloads/raspbian/),
-    > current version is Jessie
+1.  download the Raspbian operating system from here [https://www.raspberrypi.org/downloads/raspbian/](https://www.raspberrypi.org/downloads/raspbian/), current version is Jessie
 
 2.  once it's downloaded, unzip it, you should get an .img file
 
-3.  now we need to copy it to the SD Card, but we can't just
-    > drag-and-drop it, so follow these instructions:
+3.  now we need to copy it to the SD Card, but we can't just drag-and-drop it, so follow these instructions:
 
     a.  plug the SD card into the computer using a microSD reader (or,
         > more likely, a microSD-to-SD adapter and an SD card reader
@@ -82,13 +60,9 @@ Connecting Your Computer to the Raspberry Pi
 
 now we have to figure out how to talk to the raspberry pi.
 
-1.  plug it all in. don't worry about the SDR antenna or the display
-    > yet. Just plug the SD card into the Raspberry Pi and plug the
-    > power adapter into the Pi (and into the wall). The lights on the
-    > Raspberry Pi should start blinking.
+1.  plug it all in. don't worry about the SDR antenna or the display yet. Just plug the SD card into the Raspberry Pi and plug the power adapter into the Pi (and into the wall). The lights on the Raspberry Pi should start blinking.
 
-2.  Open the command line on Linux or Mac (if you use Windows, download
-    > PuTTY and use that) and type ssh pi@raspberrypi.local
+2.  Open the command line on Linux or Mac (if you use Windows, download PuTTY and use that) and type ssh pi@raspberrypi.local
 
 3.  Enter the password raspberry.
 
@@ -108,8 +82,7 @@ where xxx is a number less than 255. It might also be something like
 
 Once you find it, try this:
 
-1.  Open the command line on Linux or Mac (if you use Windows, download
-    > PuTTY and use that) and type ssh pi@raspberrypi.local
+1.  Open the command line on Linux or Mac (if you use Windows, download PuTTY and use that) and type ssh pi@raspberrypi.local
 
 2.  Enter the password raspberry.
 
