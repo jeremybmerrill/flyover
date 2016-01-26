@@ -20,14 +20,21 @@ How does this work?
 
 On the Raspberry Pi, we're running [Dump1090](https://github.com/mutability/dump1090) to handle the hard work of determining what planes are in the sky nearby. Piggybacking on Dump1090's JSON, `dump1090_to_nearest_flight.py` outputs the flight number and change-in-altitude of the nearest plane, optionally restricting that plane to a given area and/or altitude . `flight_number_to_departure_airport.py` translates that flight number, using a database, to the mostly likely non-NYC airport that is that flight's departure airport or destination. `display_letters.py` displays that airport's code (and, maybe, eventually, the city name for non-US airports). 
 
-Hardware Setup
---------------
+Hardware
+--------
+
+If you wanted to build this yourself, you'd need (at least): 
 
 - an SDR antenna
 - a Raspberry Pi 2
 - a 16x8 LED matrix ([e.g.](https://www.adafruit.com/products/2037))
-- some jumpers to connect the LED matrix to the Raspberry Pi
+- some female-to-female jumpers to connect the LED matrix to the Raspberry Pi (alternatively, an Adafruit Pi Cobbler or similar breakout cable, a breadboard and male-to-male jumpers)
 - a soldering iron to assemble the LED matrix
+
+Software setup
+--------------
+
+I'll be posting a detailed guide here after I get a chance to write it.
 
 TODO
 ----
