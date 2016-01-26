@@ -27,7 +27,8 @@ class Flyover:
     try:
       flight_rows = check_output(["grep", "%s,%s,"%(airline, number), os.path.join(os.path.dirname(os.path.realpath(__file__)),  "FlightNumbers.csv") ]).decode("utf-8").strip().split("\r\n")
     except CalledProcessError:
-      flight_rows = []
+      print("ERROR: FlightNumbers.csv doesn't exist. Run ./ensure_flightnumbers_csv_exists.sh to download it. ", file=sys.stderr)
+      return
 
     # if there is more than one match for the given flight number, we're in trouble, but continue after warning
     if len(flight_rows) > 1: 
