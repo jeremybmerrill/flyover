@@ -1,2 +1,2 @@
-* * * * * pi /home/pi/flyover/dump1090_to_nearest_flight.py --altitude="<10000" --area=/home/pi/flyover/laguardia_area.geojson | /home/pi/flyover/flight_number_to_departure_airport.py | /home/pi/flyover/display_letters.py > /home/pi/flyover/output.txt
-* * * * * pi sleep 30 &&  /home/pi/flyover/dump1090_to_nearest_flight.py --altitude="<10000" --area=/home/pi/flyover/laguardia_area.geojson | /home/pi/flyover/flight_number_to_departure_airport.py | /home/pi/flyover/display_letters.py > /home/pi/flyover/output.txt
+* * * * * pi /home/pi/flyover/dump1090_to_nearest_flight.py --altitude="<10000" | /home/pi/flyover/flight_number_to_departure_airport.py | /home/pi/flyover/display_letters.py > /home/pi/flyover/output.txt
+* * * * * pi sleep 30 &&  /home/pi/flyover/dump1090_to_nearest_flight.py --altitude="<10000" | /home/pi/flyover/flight_number_to_departure_airport.py | /home/pi/flyover/display_letters.py > /home/pi/flyover/output.txt
