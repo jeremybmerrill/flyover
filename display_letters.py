@@ -17,6 +17,7 @@ class Flyover:
       return
     display = Matrix16x8.Matrix16x8()
     display.begin()
+    display.set_brightness(4)
     font = ImageFont.truetype(os.path.join(os.path.dirname(__file__), 'thintel/Thintel.ttf'), 15)
     image = Image.new('1', (16, 8))
     draw = ImageDraw.Draw(image)
