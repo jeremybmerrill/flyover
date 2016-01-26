@@ -1,8 +1,8 @@
 Flyover setup
 -------------
 
-Here are instructions on how to build your own version of the [*Flyover
-notifier*](http://jeremybmerrill.com/blog/2016/01/flyover.html). I can't
+Here are instructions on how to build your own version of the [Flyover
+notifier](http://jeremybmerrill.com/blog/2016/01/flyover.html). I can't
 necessarily offer personalized support, but, hell, send me an email, I
 might respond!
 
@@ -19,38 +19,37 @@ substitute different things. They're probably available for sale at
 somewhere other than Adafruit, but Adafruit is nice and friendly and
 generally seem like good people. (I'm not getting anything in exchange
 for linking to any of these projects, e.g. referral points or anything.)
-You can also use [*FlightAware's shopping
-list*](https://flightaware.com/adsb/piaware/build).
+You can also use [FlightAware's shopping list](https://flightaware.com/adsb/piaware/build).
 
--   [*Raspberry Pi 2*](https://www.adafruit.com/products/2358)
+-   [Raspberry Pi 2](https://www.adafruit.com/products/2358)
 
-    -   [*Power adapter*](https://www.adafruit.com/products/1995)
+    -   [Power adapter](https://www.adafruit.com/products/1995)
 
-    -   [*Wi-Fi adapter
-        > *](http://www.amazon.com/gp/product/B003MTTJOY?psc=1&redirect=true&ref_=od_aui_detailpages00)(unless
+    -   [Wi-Fi adapter
+        > ](http://www.amazon.com/gp/product/B003MTTJOY?psc=1&redirect=true&ref_=od_aui_detailpages00)(unless
         > you can reach your device with an ethernet cable, in which
         > case you don't need this)
 
-    -   [*microSD
-        > card*](http://www.bestbuy.com/site/samsung-evo-32gb-microsdhc-class-10-uhs-1-memory-card-red-white/4568505.p?id=1219769553726&skuId=4568505&cmp=RMX)
+    -   [microSD
+        > card](http://www.bestbuy.com/site/samsung-evo-32gb-microsdhc-class-10-uhs-1-memory-card-red-white/4568505.p?id=1219769553726&skuId=4568505&cmp=RMX)
 
     -   an ethernet cable (for initial setup, if you buy a Wi-Fi
         > adapter, you'll only need the cable for a few minutes, so you
         > can borrow it from something)
 
--   [*Software-Defined Radio stick and
-    > antenna*](https://www.adafruit.com/products/1497)
+-   [Software-Defined Radio stick and
+    > antenna](https://www.adafruit.com/products/1497)
 
--   [*16x8 LED matrix screen*](https://www.adafruit.com/products/2037)
+-   [16x8 LED matrix screen](https://www.adafruit.com/products/2037)
     > (or substitute your own display, this one wasn't the best choice
     > for this project, since it can only display three characters)
 
--   [*Jumpers*](https://www.adafruit.com/products/266) (or a "[*Pi
-    > Cobbler*](https://www.adafruit.com/products/2029)", breadboard and
+-   [Jumpers](https://www.adafruit.com/products/266) (or a "[Pi
+    > Cobbler](https://www.adafruit.com/products/2029)", breadboard and
     > male-to-male jumpers)
 
--   [*Soldering Iron*](https://www.adafruit.com/products/180) and
-    > [*Solder*](https://www.adafruit.com/products/1886)
+-   [Soldering Iron](https://www.adafruit.com/products/180) and
+    > [Solder](https://www.adafruit.com/products/1886)
 
 Setup
 =====
@@ -59,7 +58,7 @@ Set up SD Card with operating system
 ------------------------------------
 
 1.  download the Raspbian operating system from here
-    > [*https://www.raspberrypi.org/downloads/raspbian/*](https://www.raspberrypi.org/downloads/raspbian/),
+    > [https://www.raspberrypi.org/downloads/raspbian/](https://www.raspberrypi.org/downloads/raspbian/),
     > current version is Jessie
 
 2.  once it's downloaded, unzip it, you should get an .img file
@@ -120,7 +119,7 @@ Installing dump1090
 -------------------
 
 More detailed instructions are found here:
-[*https://github.com/mutability/dump1090*](https://github.com/mutability/dump1090)
+[https://github.com/mutability/dump1090](https://github.com/mutability/dump1090)
 
 Now you should plug in the SDR adapter to one of the USB ports on the
 Raspberry Pi. Doesn't matter which.
@@ -154,8 +153,8 @@ ATTRS{idProduct}=="2838", MODE:="0666" -" | sudo tee
 \$ sudo service udev restart
 
 Now, you should be able to go to
-[*http://raspberrypi.local:8080*](http://raspberrypi.local:8080) or
-[*http://192.168.x.xxx:8080*](http://192.168.x.xxx:8080) (the same as
+[http://raspberrypi.local:8080](http://raspberrypi.local:8080) or
+[http://192.168.x.xxx:8080](http://192.168.x.xxx:8080) (the same as
 above). And there should be a fun page from dump1090 showing planes
 overhead.
 
@@ -168,7 +167,7 @@ represents the Raspberry Pi.
 \$ sudo apt-get install python-smbus python-imaging
 
 \$ wget
-[*https://github.com/jeremybmerrill/flyover/archive/master.zip*](https://github.com/jeremybmerrill/flyover/archive/master.zip)
+[https://github.com/jeremybmerrill/flyover/archive/master.zip](https://github.com/jeremybmerrill/flyover/archive/master.zip)
 
 \$ unzip master.zip
 
