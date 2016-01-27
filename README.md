@@ -31,6 +31,7 @@ TODO
 ----
 - look up airport names for non-US airports and display them too. (Where right now we'd display EGLL, we should instead display EGLL (London Heathrow, UK)).
 - maybe also track noise. cf. http://webtrak5.bksv.com/panynj4
+- it appears Southwest's airplanes may broadcast their flight number as just the number, i.e. 539, not SWA539. 
 
 Theoretically Askable Questions
 -------------------------------
