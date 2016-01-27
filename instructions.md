@@ -8,7 +8,7 @@ might respond!
 
 I've tried to make these instructions as detailed as possible, but if
 something is imprecise, hard to understand or incorrect, please submit a
-pull request.
+pull request or send me a note.
 
 Hardware:
 =========
