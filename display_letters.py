@@ -28,11 +28,19 @@ class Flyover:
   @classmethod
   def show(self, airport):
     # either in the form of 
-    # - KRDU
+    # - KRDU or
     # - CYUL
-    # - RDU
+    # and eventually, perhaps, in this format
     # - KRDU (Raleigh-Durham, NC)
     # - CYUL (Montreal Trudeau, QC)
+    # - UUEE (Moscow-Sheremetyevo, Russia)
+    # which would be displayed like this:
+    # show the first three letters (or letters 2, 3, 4 for US/Canada) for a little bit, then scroll the rest
+
+    # right now, only displays US airports by their code, along with Toronto, Montreal and Ottawa,
+    # which are the only Canadian airports with service to LaGuardia
+    # if this code were to be used more generically (as in, not just by Jeremy)
+    # this needs to be generalized.
     us_airport_match = re.match("K([A-Z][A-Z][A-Z])", airport[0:4])
     if us_airport_match:
       self.literally_show(us_airport_match.groups(0)[0])
@@ -41,7 +49,6 @@ class Flyover:
     else:
       self.literally_show('')
       return
-      # show the first four letters for a little bit, then scroll the rest
 
 if __name__ == "__main__":
   # doesn't support quotes in input because naively splits on whitespace
