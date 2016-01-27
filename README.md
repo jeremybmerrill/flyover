@@ -13,7 +13,7 @@
 
 What's that plane flying overhead? 
 
-I live underneath a flight path for airplanes arriving at LaGuardia Airport in New York. When I hear the planes, I get curious: where are those people coming from? I wrote this to find out.
+I live underneath a flight path for airplanes arriving at LaGuardia Airport in New York. When I hear the planes, I get curious: where are those people coming from? I wrote this to find out. You can read more about my feelings [here](http://jeremybmerrill.com/blog/2016/01/flyover.html).
 
 How does this work?
 -------------------
@@ -23,14 +23,14 @@ On the Raspberry Pi, we're running [Dump1090](https://github.com/mutability/dump
 Build your own
 ---------------
 
-[Follow the instructions!](/instructions.md)
+[Follow the instructions!](/instructions.md) If something seems wrong or could be improved upon, please submit a pull request.
 
 If you need to draw an area for your favorite flight path, use [geojson.io](http://geojson.io). That's what I used to generate [laguardia_area.geojson](laguardia_area.geojson).
 
 TODO
 ----
 - look up airport names for non-US airports and display them too. (Where right now we'd display EGLL, we should instead display EGLL (London Heathrow, UK)).
-- also track noise. cf. http://webtrak5.bksv.com/panynj4
+- maybe also track noise. cf. http://webtrak5.bksv.com/panynj4
 
 Theoretically Askable Questions
 -------------------------------
@@ -48,6 +48,10 @@ No, they're not. Please don't contact me anymore.
 *Why isn't this Python 3 compatible?*
 
 I couldn't get the Adafruit Python LED Backpack library working in Python 3. That's probably because I'm bad at Python, not on them.
+
+*I have an idea to make this better. Can I send you a pull request?*
+
+Yes, please. I would like that very much.
 
 I would like to thank the Academy...
 ------------------------------------
