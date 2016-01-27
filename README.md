@@ -25,11 +25,12 @@ Build your own
 
 [Follow the instructions!](/instructions.md)
 
-
+If you need to draw an area for your favorite flight path, use [geojson.io](http://geojson.io). That's what I used to generate [laguardia_area.geojson](laguardia_area.geojson).
 
 TODO
 ----
 - look up airport names for non-US airports and display them too. (Where right now we'd display EGLL, we should instead display EGLL (London Heathrow, UK)).
+- also track noise. cf. http://webtrak5.bksv.com/panynj4
 
 Theoretically Askable Questions
 -------------------------------
