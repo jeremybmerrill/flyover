@@ -127,7 +127,9 @@ Download the Flyover code: `\$ wget
 `\$ unzip master.zip`
 
 Move this script to `/etc/cron.d/` tells the computer to run the Flyover code once every thirty seconds.
-`\$ sudo mv flyover/flyover /etc/cron.d/`
+`\$ sudo mv flyover/flyover-cron /etc/cron.d/`
+`\$ sudo chown root:root /etc/cron.d/flyover-cron`
+
 
 And enable the Dump1090 web interface in the location that Flyover expects it.
 `\$ sudo mv flyover/89-dump1090.conf /etc/lighttpd/sites-enabled/`

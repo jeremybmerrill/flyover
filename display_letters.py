@@ -53,5 +53,5 @@ class Flyover:
 if __name__ == "__main__":
   # doesn't support quotes in input because naively splits on whitespace
   stdin = " ".join(sys.stdin.readlines()).split()
-  print("input", stdin)
-  print(Flyover.show( stdin[0] if len(stdin) else ''  ))
+  print("displaying: %s" % ','.join(stdin))
+  Flyover.show( stdin[0] if len(stdin) else ''  )
