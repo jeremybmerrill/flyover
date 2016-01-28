@@ -1,0 +1,2 @@
+* * * * * pi /home/pi/flyover/flyover
+* * * * * pi sleep 30 &&  /home/pi/flyover/flyover
