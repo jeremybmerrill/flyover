@@ -8,6 +8,7 @@ import re
 import geojson
 from sys import stderr
 from shapely.geometry import Point, shape
+from os import path
 
 class Flyover:
   flight_num_re = re.compile("^[A-Z]{2,3}\d+$", re.IGNORECASE)
@@ -34,7 +35,7 @@ class Flyover:
       if not area_geojson_location:
         return True
       try:
-        with open(area_geojson_location, 'r') as geo:
+        with open(path.expanduser(area_geojson_location), 'r') as geo:
           bounds = geojson.loads(geo.read())["geometry"]
           flight_loc = Point(f.get("lon", 0), f.get("lat", 0))
           return shape(bounds).contains(flight_loc)
