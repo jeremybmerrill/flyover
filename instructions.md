@@ -120,15 +120,16 @@ Installing Flyover
 Run these commands, still on the command prompt on your computer that
 represents the Raspberry Pi.
 
-`\$ sudo apt-get install python-smbus python-imaging`
+Installs some libraries: `\$ sudo apt-get install python-smbus python-imaging`
 
-`\$ wget
+Download the Flyover code: `\$ wget
 [https://github.com/jeremybmerrill/flyover/archive/master.zip](https://github.com/jeremybmerrill/flyover/archive/master.zip)`
-
 `\$ unzip master.zip`
 
-`\$ sudo mv flyover/99-flyover.cron /etc/cron.d/`
+Move this script to `/etc/cron.d/` tells the computer to run the Flyover code once every thirty seconds.
+`\$ sudo mv flyover/flyover /etc/cron.d/`
 
+And enable the Dump1090 web interface in the location that Flyover expects it.
 `\$ sudo mv flyover/89-dump1090.conf /etc/lighttpd/sites-enabled/`
 
 Finishing up
