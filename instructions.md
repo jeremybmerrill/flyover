@@ -14,7 +14,7 @@ Hardware:
 =========
 
 You need the following pieces of equipment for an exact clone of my
-setup. If you're hardware and software savvy, you can certainly
+setup; the cost should be about $100 (USD) total. If you're hardware and software savvy, you can certainly
 substitute different things. They're probably available for sale at
 somewhere other than Adafruit, but Adafruit is nice and friendly and
 generally seem like good people. (I'm not getting anything in exchange
