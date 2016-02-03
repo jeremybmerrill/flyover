@@ -7,7 +7,6 @@ import sys
 import os.path
 
 class Flyover:
-  NYC_AIRPORTS = ["KLGA", "KJFK", "KEWR"]
   TRANSLATIONS = {
     "JB": "JBU",
   }
@@ -15,8 +14,9 @@ class Flyover:
   flight_number_re = re.compile("^([A-Z]+)?(\d+)$")
 
   @classmethod
-  def where(self, flight_number, delta_altitude):
+  def where(self, options, flight_number, delta_altitude):
     airline, number = self.flight_number_re.match(flight_number).groups()
+    local_airports = [ ("K" + airport ) if len(airport) == 3 else airport for airport in options.airports.split(",")]
 
     if airline in self.TRANSLATIONS:
       airline = self.TRANSLATIONS[airline]
@@ -44,9 +44,9 @@ class Flyover:
     print("DEBUG: row: %s"%flight_rows[0].strip(), file=sys.stderr)
 
     # determine if this flight number goes to New York 
-    if any([nyc_airport in airports for nyc_airport in self.NYC_AIRPORTS]):
+    if any([nyc_airport in airports for nyc_airport in local_airports]):
       # if this flight number goes to several airports, ignore the New York airports and the airports from which this flight does not come or go from New York. (because that's not a relevant destination here, except in potential odd cases)
-      nyc_adjacent_airports = [airport for idx, airport in enumerate(airports) if (idx > 0 and airports[idx-1] in self.NYC_AIRPORTS) or (idx < (len(airports) -1) and airports[idx+1] in self.NYC_AIRPORTS) ]
+      nyc_adjacent_airports = [airport for idx, airport in enumerate(airports) if (idx > 0 and airports[idx-1] in local_airports) or (idx < (len(airports) -1) and airports[idx+1] in local_airports) ]
 
 
       # if there's only one non-NYC airport that is adjacent to an NYC airport in the itinerary, then return that
@@ -62,13 +62,23 @@ class Flyover:
     else: # if this flight doesn't go to NYC, and is just flying over, show its final destination
          # possible enhancement
          # TODO: find the airport pair whose great-circle path comes closest to New York City, then show the farthest member of that pair
+         # that would be, basically, the "most interesting" point on its current path, whether source or destination 
          # e.g. if this is a flight number from Dallas to Cancun to Boston, first determine that the Cancun-Boston pair passes cloer to New York than Dallas-Cancun, then determine that Cancun is farther from New York than Boston, so return Cancun
       return airports[-1]
 
 if __name__ == "__main__":
+  import argparse
+  parser = argparse.ArgumentParser(description='Usage: dump1090_to_nearest_flight.py [options]')
+  parser.add_argument('-a', '--airports',
+                      help="Your home airport(s), used to differentiate planes arriving, leaving or flying over. e.g. `KLGA,KJFK,KEWR`.",
+                      required=False,
+                      default='KLGA,KJFK,KEWR')
+  args = parser.parse_args()
+
   # doesn't support quotes in input because naively splits on whitespace
-  stdin = " ".join(sys.stdin.readlines()).strip().split()
+  # stdin = " ".join(sys.stdin.readlines()).strip().split()
+  stdin = (input() if (sys.version_info > (3, 0)) else raw_input()).split()
   if not len(stdin):
     print('')
   else:
-    print(Flyover.where(stdin[0], int(stdin[1]) )) # actual output
+    print(Flyover.where(args, stdin[0], int(stdin[1]) )) # actual output
