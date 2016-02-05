@@ -36,7 +36,7 @@ class Flyover:
         return True
       try:
         with open(path.expanduser(area_geojson_location), 'r') as geo:
-          bounds = geojson.loads(geo.read())["geometry"]
+          bounds = geojson.loads(geo.read())["features"][0]["geometry"]
           flight_loc = Point(f.get("lon", 0), f.get("lat", 0))
           return shape(bounds).contains(flight_loc)
       except IOError:

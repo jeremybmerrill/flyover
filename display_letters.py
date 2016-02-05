@@ -52,6 +52,7 @@ class Flyover:
 
 if __name__ == "__main__":
   # doesn't support quotes in input because naively splits on whitespace
-  stdin = " ".join(sys.stdin.readlines()).split()
+  # stdin = " ".join(sys.stdin.readlines()).split()
+  stdin = (input() if (sys.version_info > (3, 0)) else raw_input()).split()
   print("displaying: %s" % ','.join(stdin))
   Flyover.show( stdin[0] if len(stdin) else ''  )
