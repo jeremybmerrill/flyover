@@ -21,11 +21,11 @@ generally seem like good people. (I'm not getting anything in exchange
 for linking to any of these projects, e.g. referral points or anything.)
 You can also use [FlightAware's shopping list](https://flightaware.com/adsb/piaware/build).
 
--   [Raspberry Pi 2](https://www.adafruit.com/products/2358)
+-   [Raspberry Pi 2](https://www.adafruit.com/products/2358) (I'm sure the new Pi 3 will work too, and it includes WiFi)
     -   [Power adapter](https://www.adafruit.com/products/1995)
     -   [Wi-Fi adapter](http://www.amazon.com/gp/product/B003MTTJOY?psc=1&redirect=true&ref_=od_aui_detailpages00) (unless you can reach your device with an ethernet cable, in which case you don't need this)
-    -   [microSD card](http://www.bestbuy.com/site/samsung-evo-32gb-microsdhc-class-10-uhs-1-memory-card-red-white/4568505.p?id=1219769553726&skuId=4568505&cmp=RMX)
-    -   an ethernet cable (for initial setup, if you buy a Wi-Fi adapter, you'll only need the cable for a few minutes, so you can borrow it from something)
+    -   [microSD card](http://www.bestbuy.com/site/samsung-evo-32gb-microsdhc-class-10-uhs-1-memory-card-red-white/4568505.p?id=1219769553726&skuId=4568505&cmp=RMX) (You don't need 32gb, 8gb would be fine.)
+    -   an ethernet cable (if you buy a Wi-Fi adapter, the ethernet cable is for initial setup only, so you'll only need the cable for a few minutes -- just borrow it from something)
 -   [Software-Defined Radio stick and antenna](https://www.adafruit.com/products/1497)
 -   [16x8 LED matrix screen](https://www.adafruit.com/products/2037) (or substitute your own display, this one wasn't the best choice for this project, since it can only display three characters)
 -   [Jumpers](https://www.adafruit.com/products/266) (or a "[Pi Cobbler](https://www.adafruit.com/products/2029)", breadboard and male-to-male jumpers)
