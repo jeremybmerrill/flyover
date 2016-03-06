@@ -1,5 +1,5 @@
 Flyover setup
--------------
+=============
 
 Here are instructions on how to build your own version of the [Flyover
 notifier](http://jeremybmerrill.com/blog/2016/01/flyover.html). I can't
@@ -22,7 +22,6 @@ for linking to any of these projects, e.g. referral points or anything.)
 You can also use [FlightAware's shopping list](https://flightaware.com/adsb/piaware/build).
 
 -   [Raspberry Pi 2](https://www.adafruit.com/products/2358)
-
     -   [Power adapter](https://www.adafruit.com/products/1995)
     -   [Wi-Fi adapter](http://www.amazon.com/gp/product/B003MTTJOY?psc=1&redirect=true&ref_=od_aui_detailpages00) (unless you can reach your device with an ethernet cable, in which case you don't need this)
     -   [microSD card](http://www.bestbuy.com/site/samsung-evo-32gb-microsdhc-class-10-uhs-1-memory-card-red-white/4568505.p?id=1219769553726&skuId=4568505&cmp=RMX)
@@ -42,7 +41,7 @@ Set up SD Card with operating system
 2.  once it's downloaded, unzip it, you should get an .img file
 3.  now we need to copy it to the SD Card, but we can't just drag-and-drop it, so follow these instructions:
     a.  plug the SD card into the computer using a microSD reader (or, more likely, a microSD-to-SD adapter and an SD card reader
-    b.  run this command on Linux or Mac: `\$ sudo dd bs=4M if=2015-11-21-raspbian-jessie.img of=/dev/mmcblk0` on windows, there's probably an equivalent, but I don't know what it is. It's definitely doable and not terribly difficult though.
+    b.  run this command on Linux or Mac: `$ sudo dd bs=4M if=2015-11-21-raspbian-jessie.img of=/dev/mmcblk0` on windows, there's probably an equivalent, but I don't know what it is. It's definitely doable and not terribly difficult though.
 4.  now just insert the card in the Raspberry Pi
 
 Connecting Your Computer to the Raspberry Pi
@@ -83,34 +82,33 @@ Now you should plug in the SDR adapter to one of the USB ports on the
 Raspberry Pi. Doesn't matter which.
 
 You should run these commands in the command-line window that begins
-with \`pi@raspberrypi\`. Don't type the \$. (It just signifies that
+with `pi@raspberrypi`. Don't type the $. (It just signifies that
 you're in the command line.)
 
-`\$ wget
-https://github.com/mutability/mutability-repo/releases/download/v0.1.0/mutability-repo\_0.1.0\_armhf.deb`
-`\$ sudo dpkg -i mutability-repo\_0.1.0\_armhf.deb`
-
-`\$ sudo apt-get update && sudo apt-get install dump1090-mutability`
+````
+$ wget https://github.com/mutability/mutability-repo/releases/download/v0.1.0/mutability-repo_0.1.0_armhf.deb`
+$ sudo dpkg -i mutability-repo_0.1.0_armhf.deb
+$ sudo apt-get update && sudo apt-get install dump1090-mutability
+```
 
 Now we have to configure the dump1090 software. The defualt options are
 all okay, but you need to fill out the latitude/longitude of the spot
-you're in now. Google Maps will tell you. Navigate with the arrow keys and accept with Enter\
-`\$ sudo dpkg-reconfigure dump1090-mutability`
+you're in now. Google Maps will tell you. Navigate with the arrow keys and accept with Enter.
 
-`\$ sudo apt-get install lighttpd && sudo lighty-enable-mod dump1090`
+`$ sudo dpkg-reconfigure dump1090-mutability`
+
+`$ sudo apt-get install lighttpd && sudo lighty-enable-mod dump1090`
 
 Now we're doing some detailed, boring stuff to make the hardware work.
-
-`\$ echo "blacklist dvb\_usb\_rtl28xxu" | sudo tee
-/etc/modprobe.d/blacklist.conf`
-
-`\$ echo "SUBSYSTEMS=="usb", ATTRS{idVendor}=="0bda", ATTRS{idProduct}=="2838", MODE:="0666" -" | sudo tee /etc/udev/rules.d/50-sdr.rules`
-
-`\$ sudo service udev restart`
+````
+$ echo "blacklist dvb_usb_rtl28xxu" | sudo tee /etc/modprobe.d/blacklist.conf`
+$ echo "SUBSYSTEMS==\"usb\", ATTRS{idVendor}==\"0bda\", ATTRS{idProduct}==\"2838\", MODE:=\"0666\"" | sudo tee /etc/udev/rules.d/50-sdr.rules
+$ sudo service udev restart
+````
 
 Now, you should be able to go to
-[http://raspberrypi.local:8080](http://raspberrypi.local:8080) or
-[http://192.168.x.xxx:8080](http://192.168.x.xxx:8080) (the same as
+[http://raspberrypi.local:80](http://raspberrypi.local:80) or
+[http://192.168.x.xxx:80](http://192.168.x.xxx:80) (the same as
 above). And there should be a fun page from dump1090 showing planes
 overhead.
 
@@ -118,44 +116,58 @@ Installing Flyover
 ------------------
 
 Run these commands, still on the command prompt on your computer that
-represents the Raspberry Pi.
+represents the Raspberry Pi.c
 
-Installs some libraries: `\$ sudo apt-get install python-smbus python-imaging`
+Installs a few libraries: `$ sudo apt-get install python-smbus python-imaging libgeos-dev`
 
-Download the Flyover code: `\$ wget
-[https://github.com/jeremybmerrill/flyover/archive/master.zip](https://github.com/jeremybmerrill/flyover/archive/master.zip)`
-`\$ unzip master.zip`
+And some Python libraries: `$ pip install geojson shapely`
+
+Download and unzip the Flyover code: 
+````
+$ wget https://github.com/jeremybmerrill/flyover/archive/master.zip
+$ unzip master.zip
+$ mv flyover-master flyover
+````
+
 
 Move this script to `/etc/cron.d/` tells the computer to run the Flyover code once every thirty seconds.
-`\$ sudo mv flyover/flyover-cron /etc/cron.d/`
-`\$ sudo chown root:root /etc/cron.d/flyover-cron`
-
+````
+$ sudo mv flyover/flyover-cron /etc/cron.d/
+$ sudo chown root:root /etc/cron.d/flyover-cron
+````
 
 And enable the Dump1090 web interface in the location that Flyover expects it.
-`\$ sudo mv flyover/89-dump1090.conf /etc/lighttpd/sites-enabled/`
+
+`$ sudo mv flyover/89-dump1090.conf /etc/lighttpd/conf-enabled/89-dump1090.conf`
+
+And download the latest database of routes from FlightRadarServer:
+
+`$ flyover/ensure_flightnumbers_csv_exists.sh`
 
 Finishing up
--------------
+============
 
 Display Assembly
-================
+----------------
 Solder together the LED matrix, following Adafruit's instructions.
 
-Hook it up to the Pi. (Pin-to-pin instructions to come)
+Hook it up to the Pi. (Pin-to-pin instructions to come, email me if you're stuck)
 
 Almost there...
-============
+---------------
 Restart the Pi. (Either type `sudo reboot` or just unplug it and plug it back in again) It should just work (assuming there's a plane flying overhead!!). It might not. Open an issue with
 the error if it doesn't... 
 
-Disclaimer
-----------
+Details...
+==========
 
 Copyright 2016 Jeremy B. Merrill.
+
+Thanks to my dad for sending in fixes to these instructions!
 
 This work is licensed under the **CC 3.0 BY-NC-SA** license.
 
 You follow this guide at your own risk. Soldering, in particular, can be
 dangerous and you shouldn't do it if you don't know what you're doing.
-If you break your stuff or set your house on fire, it's your fault, not
+If you break your stuff or set your house on fire or give your dog lead poisoning, it's your fault, not
 mine.
