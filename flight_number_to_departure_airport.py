@@ -65,7 +65,7 @@ class Flyover:
          # TODO: find the airport pair whose great-circle path comes closest to New York City, then show the farthest member of that pair
          # that would be, basically, the "most interesting" point on its current path, whether source or destination 
          # e.g. if this is a flight number from Dallas to Cancun to Boston, first determine that the Cancun-Boston pair passes cloer to New York than Dallas-Cancun, then determine that Cancun is farther from New York than Boston, so return Cancun
-      return None # airports[-1]
+      return '' # airports[-1]
 
 if __name__ == "__main__":
   import argparse
