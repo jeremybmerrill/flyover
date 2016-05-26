@@ -151,14 +151,14 @@ Display Assembly
 ----------------
 Solder together the LED matrix, following Adafruit's instructions.
 
-Hook it up to the Pi. If you have a Raspberry Pi 2 Model B like I do, you'd be following a pin-out diagram [like this](http://www.raspberry-projects.com/pi/pi-hardware/raspberry-pi-2-model-b/rpi2-model-b-io-pins). Connect the following pins on the display (they're labeled on the back of the display board with the three-letter descriptions SDA, SCL, VCC and GND) to the Pi:
+Hook it up to the Pi. If you have a Raspberry Pi 2 Model B like I do, you'd be following a pin-out diagram [like this](http://www.raspberry-projects.com/pi/pi-hardware/raspberry-pi-2-model-b/rpi2-model-b-io-pins). Connect the following pins on the display (they're labeled on the back of the display board) to the Pi:
 
  - *VCC* pin to pin #4, to supply 5V power
  - *GND* pin to pin #6, for ground
  - *SCL* pin to pin #5 for I2C SCL (who knows what that stands for, maybe clock?)
  - *SDA* pin to pin #3 for I2C SDA (maybe data?)
  
-You can connect the wires with female-to-female jumpers or by soldering.
+You can connect the wires with female-to-female jumpers or by soldering. The pins are labeled on the front of the display board as `D`, `C`, `-` and `+`, where `D` is *SDA*, `C` is *SCL*, `+` is *VCC* and `-` is *GND*.
 
 Almost there...
 ---------------
