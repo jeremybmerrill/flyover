@@ -8,22 +8,38 @@ from Adafruit_LED_Backpack import Matrix16x8
 import sys
 import os
 import re
+from time import sleep
 
 class Flyover:
 
   @classmethod
   def literally_show(self, three_letters):
-    if len(three_letters) > 3:
-      return
     display = Matrix16x8.Matrix16x8()
     display.begin()
     display.set_brightness(4)
     font = ImageFont.truetype(os.path.join(os.path.dirname(__file__), 'thintel/Thintel.ttf'), 15)
-    image = Image.new('1', (16, 8))
-    draw = ImageDraw.Draw(image)
-    draw.text((0, 0), three_letters,  font=font, fill=255)
-    display.set_image(image)
-    display.write_display()
+    if len(three_letters) == 4:
+      image = Image.new('1', (21, 8))
+      draw = ImageDraw.Draw(image)
+
+      blankimage = Image.new('1', (16, 8))
+      blankdraw = ImageDraw.Draw(blankimage)
+      blankdraw.text((0, 0), '', fill=255)
+
+      for i in xrange(30):
+        n = 5 - abs((i % 12) - 5)
+        draw.text((0, 0), three_letters,  font=font, fill=255)
+        display.set_image(blankimage)
+        display.write_display()
+        display.set_image(image.crop((n, 0, n + 16, 8)))
+        display.write_display()
+        sleep(1)
+    elif len(three_letters) == 3 or len(three_letters) == 0:
+      image = Image.new('1', (16, 8))
+      draw = ImageDraw.Draw(image)
+      draw.text((0, 0), three_letters,  font=font, fill=255)
+      display.set_image(image)
+      display.write_display()
 
   @classmethod
   def show(self, airport):
@@ -37,15 +53,16 @@ class Flyover:
     # which would be displayed like this:
     # show the first three letters (or letters 2, 3, 4 for US/Canada) for a little bit, then scroll the rest
 
-    # right now, only displays US airports by their code, along with Toronto, Montreal and Ottawa,
-    # which are the only Canadian airports with service to LaGuardia
-    # if this code were to be used more generically (as in, not just by Jeremy)
-    # this needs to be generalized.
+    # right now, displays US and Canadian airports by the last three letters of their ICAO code
+    # which is usually right but occasionally (theoretically) wrong!
+    # in other cases, it displays all four letters in a hacky bouncy way
     us_airport_match = re.match("K([A-Z][A-Z][A-Z])", airport[0:4])
     if us_airport_match:
       self.literally_show(us_airport_match.groups(0)[0])
-    elif airport[0:4] in ('CYYZ', 'CYUL', 'CYOW'):
-      self.literally_show(airport[1:4]) # Canada is okay too!
+    elif airport[0:1] in ('CY', 'CZ'):
+      self.literally_show(airport[1:4]) # Canada is okay to display as only three letters too!
+    elif len(airport) == 4:
+      self.literally_show(airport)
     else:
       self.literally_show('')
       return
