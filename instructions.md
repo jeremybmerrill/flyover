@@ -28,7 +28,7 @@ You can also use [FlightAware's shopping list](https://flightaware.com/adsb/piaw
     -   an ethernet cable (if you buy a Wi-Fi adapter, the ethernet cable is for initial setup only, so you'll only need the cable for a few minutes -- just borrow it from something)
 -   [Software-Defined Radio stick and antenna](https://www.adafruit.com/products/1497)
 -   [16x8 LED matrix screen](https://www.adafruit.com/products/2037) (or substitute your own display, this one wasn't the best choice for this project, since it can only display three characters)
--   [Jumpers](https://www.adafruit.com/products/266) (or a "[Pi Cobbler](https://www.adafruit.com/products/2029)", breadboard and male-to-male jumpers)
+-   [Female-to-female Jumpers](https://www.adafruit.com/products/266) (or a "[Pi Cobbler](https://www.adafruit.com/products/2029)", breadboard and male-to-male jumpers)
 -   [Soldering Iron](https://www.adafruit.com/products/180) and [Solder](https://www.adafruit.com/products/1886)
 
 Setup
@@ -151,7 +151,14 @@ Display Assembly
 ----------------
 Solder together the LED matrix, following Adafruit's instructions.
 
-Hook it up to the Pi. (Pin-to-pin instructions to come, email me if you're stuck)
+Hook it up to the Pi. If you have a Raspberry Pi 2 Model B like I do, you'd be following a pin-out diagram [like this](http://www.raspberry-projects.com/pi/pi-hardware/raspberry-pi-2-model-b/rpi2-model-b-io-pins). Connect the following pins on the display (they're labeled on the back of the display board) to the Pi:
+
+ - *VCC* pin to pin #4, to supply 5V power
+ - *GND* pin to pin #6, for ground
+ - *SCL* pin to pin #5 for I2C SCL (who knows what that stands for, maybe clock?)
+ - *SDA* pin to pin #3 for I2C SDA (maybe data?)
+ 
+You can connect the wires with female-to-female jumpers or by soldering. The pins are labeled on the front of the display board as `D`, `C`, `-` and `+`, where `D` is *SDA*, `C` is *SCL*, `+` is *VCC* and `-` is *GND*.
 
 Almost there...
 ---------------
