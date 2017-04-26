@@ -13,12 +13,12 @@ from time import sleep
 class Flyover:
 
   @classmethod
-  def literally_show(self, three_letters):
+  def literally_show(self, airport_code):
     display = Matrix16x8.Matrix16x8()
     display.begin()
     display.set_brightness(4)
     font = ImageFont.truetype(os.path.join(os.path.dirname(__file__), 'thintel/Thintel.ttf'), 15)
-    if len(three_letters) == 4:
+    if len(airport_code) == 4:
       image = Image.new('1', (21, 8))
       draw = ImageDraw.Draw(image)
 
@@ -28,16 +28,16 @@ class Flyover:
 
       for i in xrange(30):
         n = 5 - abs((i % 12) - 5)
-        draw.text((0, 0), three_letters,  font=font, fill=255)
+        draw.text((0, 0), airport_code,  font=font, fill=255)
         display.set_image(blankimage)
         display.write_display()
         display.set_image(image.crop((n, 0, n + 16, 8)))
         display.write_display()
         sleep(1)
-    elif len(three_letters) == 3 or len(three_letters) == 0:
+    elif len(airport_code) == 3 or len(airport_code) == 0:
       image = Image.new('1', (16, 8))
       draw = ImageDraw.Draw(image)
-      draw.text((0, 0), three_letters,  font=font, fill=255)
+      draw.text((0, 0), airport_code,  font=font, fill=255)
       display.set_image(image)
       display.write_display()
 
@@ -70,6 +70,6 @@ class Flyover:
 if __name__ == "__main__":
   # doesn't support quotes in input because naively splits on whitespace
   # stdin = " ".join(sys.stdin.readlines()).split()
-  stdin = (input() if (sys.version_info > (3, 0)) else raw_input()).split()
+  stdin = (input() if (sys.version_info > (3, 0)) else raw_input()).split() or ''
   print("displaying: %s" % ','.join(stdin))
   Flyover.show( stdin[0] if len(stdin) else ''  )
