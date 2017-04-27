@@ -85,4 +85,4 @@ if __name__ == "__main__":
   if not len(stdin):
     print('')
   else:
-    print(Flyover.where(args, stdin[0], int(stdin[1]) )) # actual output
+    print(Flyover.where(args, stdin[0], int(stdin[1]) ) || '') # actual output
