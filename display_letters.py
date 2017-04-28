@@ -26,14 +26,14 @@ class Flyover:
       blankdraw = ImageDraw.Draw(blankimage)
       blankdraw.text((0, 0), '', fill=255)
 
-      for i in xrange(28):
+      for i in xrange(58):
         n = 5 - abs((i % 12) - 5)
         draw.text((0, 0), airport_code,  font=font, fill=255)
         display.set_image(blankimage)
         display.write_display()
         display.set_image(image.crop((n, 0, n + 16, 8)))
         display.write_display()
-        sleep(1 if i > 0 else 3)
+        sleep( 0.5 if i > 0 else 3)
     elif len(airport_code) == 3 or len(airport_code) == 0:
       image = Image.new('1', (16, 8))
       draw = ImageDraw.Draw(image)
