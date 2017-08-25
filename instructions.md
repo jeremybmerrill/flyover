@@ -120,7 +120,7 @@ represents the Raspberry Pi.
 
 Installs a few libraries: `$ sudo apt-get install python-smbus python-imaging libgeos-dev`
 
-And some Python libraries: `$ pip install geojson shapely`
+And some Python libraries: `$ sudo pip install geojson shapely`
 
 Download and unzip the Flyover code: 
 ````
@@ -130,7 +130,7 @@ $ mv flyover-master flyover
 ````
 
 
-Move this script to `/etc/cron.d/` tells the computer to run the Flyover code once every thirty seconds.
+Move the `flyover-cron` script to `/etc/cron.d/` tells the computer to run the Flyover code once every thirty seconds, by running these two commands:
 ````
 $ sudo mv flyover/flyover-cron /etc/cron.d/
 $ sudo chown root:root /etc/cron.d/flyover-cron
