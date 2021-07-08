@@ -1,4 +1,4 @@
 touch ~/flyover/output.txt &&
-~/flyover/dump1090_to_nearest_flight.py --area=~/flyover/laguardia_area.geojson --altitude="<10000" 2>>~/flyover/output.txt |
-~/flyover/flight_number_to_departure_airport.py --airports=KLGA,KJFK,KEWR 2>>~/flyover/output.txt |
-~/flyover/display_letters.py 2>>~/flyover/output.txt >> ~/flyover/output.txt
+python3 ~/flyover/dump1090_to_nearest_flight.py --area=~/flyover/myhouse.geojson --altitude="<12000" 2>>~/flyover/output.txt |
+python3 ~/flyover/flight_number_to_departure_airport.py --airports=KATL 2>>~/flyover/output.txt |
+python3 ~/flyover/display_letters.py 2>>~/flyover/output.txt >> ~/flyover/output.txt

@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 # encoding: utf-8
 
 # gets the dump1090 JSON, assumes its on localhost
@@ -22,7 +22,7 @@ class Flyover:
       location =      requests.get("http://%s/dump1090/data/receiver.json" % options.host).json()
       try: 
         location["lat"]
-      except KeyError, e:
+      except KeyError:
         raise(KeyError("Your Dump1090 installation doesn't disclose its location. Specify your location with the --location option."))
         
     aircraft_resp = requests.get("http://%s/dump1090/data/aircraft.json" % options.host).json()
@@ -37,7 +37,7 @@ class Flyover:
       try:
         with open(path.expanduser(area_geojson_location), 'r') as geo:
           bounds = geojson.loads(geo.read())["features"][0]["geometry"]
-          flight_loc = Point(f.get("lon", 0), f.get("lat", 0))
+          flight_loc = Point(flight.get("lon", 0), flight.get("lat", 0))
           return shape(bounds).contains(flight_loc)
       except IOError:
         print("couldn't find geojson file at %s, ignoring" % area_geojson_location, file=stderr)
@@ -47,16 +47,18 @@ class Flyover:
       if not altitude_string:
         return True 
       altitude_string = altitude_string.strip()
-      if 'altitude' not in flight:
+      if 'alt_baro' not in flight:
         return False 
+
       if altitude_string[0] == ">":
-        return flight['altitude'] > int(altitude_string[1:])
+        return flight['alt_baro'] > int(altitude_string[1:])
       elif altitude_string[0] == "<":
-        return flight['altitude'] < int(altitude_string[1:])
+        return flight['alt_baro'] < int(altitude_string[1:])
       else: # assume less than
-        return flight['altitude'] < int(altitude_string)
+        return flight['alt_baro'] < int(altitude_string)
 
     flights = [f for f in flights if altitude(f, options.altitude) and within_area(f, options.area)]
+
     try:
       nearest_flight = sorted(flights, key=distance)[0]
       return "%s %i" % (nearest_flight['flight'].strip(), nearest_flight.get("vert_rate", 0))
@@ -72,7 +74,7 @@ if __name__ == "__main__":
                       required=False,
                       default='localhost')
   parser.add_argument("-a", '--altitude',
-                      help="a location constraint for aircraft, e.g. '<10000' or '>30000'. In feet. ",
+                      help="an altitude constraint for aircraft, e.g. '<10000' or '>30000'. In feet. ",
                       required=False,
                       default=None)
   parser.add_argument("-g", '--area',

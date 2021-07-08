@@ -1,45 +1,65 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 # encoding: utf-8
 
-import ImageFont
-import ImageDraw
-import Image
-from Adafruit_LED_Backpack import Matrix16x8
+from PIL import ImageFont, ImageDraw, Image
+import board
+import busio
+from adafruit_ht16k33.matrix import Matrix8x8
 import sys
 import os
 import re
 from time import sleep
 
+
+
+
+class CorrectlyOrderedMatrix16x8(Matrix8x8):
+    """Adafruit's Matrix16x8 code does some funny business switching coordinates around,
+       I think because their's has the two 8x8s arranged vertically from the computer's 
+       perspective, but they're betting you have it on its side physically.
+      
+       This class undoes their funny business. X is x, y is y.
+       """
+    _columns = 16
+    _rows = 8
+    def pixel(self, x, y, color=None):
+        """Get or set the color of a given pixel."""
+        if not 0 <= x <= 15:
+            return None
+        if not 0 <= y <= 7:
+            return None
+        return super()._pixel(x, y, color)  # pylint: disable=arguments-out-of-order
+
+
+
+
 class Flyover:
 
   @classmethod
   def literally_show(self, airport_code):
-    display = Matrix16x8.Matrix16x8()
-    display.begin()
-    display.set_brightness(4)
+    i2c = busio.I2C(board.SCL, board.SDA)
+    display = CorrectlyOrderedMatrix16x8(i2c)
+    display.brightness = 0.4
+    display.fill(0)
+
     font = ImageFont.truetype(os.path.join(os.path.dirname(__file__), 'thintel/Thintel.ttf'), 15)
     if len(airport_code) == 4:
       image = Image.new('1', (21, 8))
       draw = ImageDraw.Draw(image)
 
-      blankimage = Image.new('1', (16, 8))
-      blankdraw = ImageDraw.Draw(blankimage)
-      blankdraw.text((0, 0), '', fill=255)
-
       for i in xrange(58):
         n = 5 - abs((i % 12) - 5)
         draw.text((0, 0), airport_code,  font=font, fill=255)
-        display.set_image(blankimage)
-        display.write_display()
-        display.set_image(image.crop((n, 0, n + 16, 8)))
-        display.write_display()
+        display.fill(0)
+        display.image(image.crop((n, 0, n + 16, 8)))
+        display.show()        
         sleep( 0.5 if i > 0 else 3)
     elif len(airport_code) == 3 or len(airport_code) == 0:
       image = Image.new('1', (16, 8))
       draw = ImageDraw.Draw(image)
       draw.text((0, 0), airport_code,  font=font, fill=255)
-      display.set_image(image)
-      display.write_display()
+      display.image(image)
+      display.show()
 
   @classmethod
   def show(self, airport):
@@ -61,9 +81,10 @@ class Flyover:
       self.literally_show(us_airport_match.groups(0)[0])
     elif airport[0:1] in ('CY', 'CZ'):
       self.literally_show(airport[1:4]) # Canada is okay to display as only three letters too!
-    elif len(airport) == 4:
+    elif len(airport) in (4,3,0):
       self.literally_show(airport)
     else:
+      print("ignoring invalid airport_code input {}".format(airport))
       self.literally_show('')
       return
 
@@ -73,3 +94,4 @@ if __name__ == "__main__":
   stdin = ((input() if (sys.version_info > (3, 0)) else raw_input()) or '').split()
   print("displaying: %s" % ','.join(stdin))
   Flyover.show( stdin[0] if len(stdin) else ''  )
+

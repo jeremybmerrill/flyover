@@ -3,3 +3,7 @@ old_stuff
 *.sqb
 *.pyc
 output.txt
+.env
+*.bak
+myhouse.geojson
+aircraft.json
