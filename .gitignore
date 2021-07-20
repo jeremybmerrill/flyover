@@ -7,3 +7,4 @@ output.txt
 *.bak
 myhouse.geojson
 aircraft.json
+flightnumbers.sqlite3

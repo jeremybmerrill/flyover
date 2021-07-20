@@ -5,6 +5,7 @@ import re
 from subprocess import check_output, CalledProcessError
 import sys
 import os.path
+import sqlite3
 
 class Flyover:
   TRANSLATIONS = {
@@ -24,14 +25,13 @@ class Flyover:
     # data is FlightNumbers.csv from http://www.virtualradarserver.co.uk/FlightRoutes.aspx
     # script assumes that the datafile is in the same directory as this script
     # script assumes that grep is installed (i.e. this script won't work on Windows, sorry! Pull Request would be accepted though.)
-    try:
-      flight_rows = check_output(["grep", "%s,%s,"%(airline, number), os.path.join(os.path.dirname(os.path.realpath(__file__)),  "FlightNumbers.csv") ]).decode("utf-8").strip().split("\r\n")
-    except CalledProcessError as e:
-      if e.returncode == 1: # not a real error, just wasn't found.
-        flight_rows = []
-      else: #e.g. return code 2
-        print("ERROR: FlightNumbers.csv doesn't exist. Run ./ensure_flightnumbers_csv_exists.sh to download it. ", file=sys.stderr)
-        return
+    con = sqlite3.connect('flightnumbers.sqlite3')
+    cur = con.cursor()
+
+    # Create table
+    flight_rows = list(cur.execute('''SELECT * FROM flightnumbers where AirlineCode = ? and FlightNumber = ?''', (airline, number)))
+    con.close()
+
 
     # if there is more than one match for the given flight number, we're in trouble, but continue after warning
     if len(flight_rows) > 1: 
@@ -40,11 +40,11 @@ class Flyover:
       print("WARN: zero matches for %s" % flight_number, file=sys.stderr)
     if not flight_rows:
       return 
-    route = flight_rows[0].split(",")[-1]
+    route = flight_rows[0][-1]
     
     # get a list of the airports served by this flight number
     airports = route.split("-")
-    print("DEBUG: row: %s"%flight_rows[0].strip(), file=sys.stderr)
+    print("DEBUG: row: %s"%str(flight_rows[0]), file=sys.stderr)
 
     # determine if this flight number goes to New York 
     if any([nyc_airport in airports for nyc_airport in local_airports]):
