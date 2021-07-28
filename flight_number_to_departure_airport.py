@@ -25,7 +25,7 @@ class Flyover:
     # data is FlightNumbers.csv from http://www.virtualradarserver.co.uk/FlightRoutes.aspx
     # script assumes that the datafile is in the same directory as this script
     # script assumes that grep is installed (i.e. this script won't work on Windows, sorry! Pull Request would be accepted though.)
-    con = sqlite3.connect('flightnumbers.sqlite3')
+    con = sqlite3.connect(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'flightnumbers.sqlite3'))
     cur = con.cursor()
 
     # Create table
