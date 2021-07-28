@@ -19,13 +19,13 @@ class Flyover:
       lat, lon = options.location.split(",")
       location = {"lon": float(lon),"lat": float(lat)}
     else:
-      location =      requests.get("http://%s/dump1090/data/receiver.json" % options.host).json()
+      location =      requests.get("http://%s/dump1090/data/receiver.json" % options.host, timeout=10).json()
       try: 
         location["lat"]
       except KeyError:
         raise(KeyError("Your Dump1090 installation doesn't disclose its location. Specify your location with the --location option."))
         
-    aircraft_resp = requests.get("http://%s/dump1090/data/aircraft.json" % options.host).json()
+    aircraft_resp = requests.get("http://%s/dump1090/data/aircraft.json" % options.host, timeout=10).json()
     flights = aircraft_resp["aircraft"]
     flights = [f for f in flights if "flight" in f and self.flight_num_re.match(f["flight"].strip()) and f["seen"] < 60] 
     def distance(f):
