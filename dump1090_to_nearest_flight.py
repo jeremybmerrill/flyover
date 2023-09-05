@@ -19,13 +19,13 @@ class Flyover:
       lat, lon = options.location.split(",")
       location = {"lon": float(lon),"lat": float(lat)}
     else:
-      location =      requests.get("http://%s/dump1090/data/receiver.json" % options.host, timeout=10).json()
+      location =      requests.get("http://%s/%s/data/receiver.json" % (options.host, options.path), timeout=10).json()
       try: 
         location["lat"]
       except KeyError:
         raise(KeyError("Your Dump1090 installation doesn't disclose its location. Specify your location with the --location option."))
         
-    aircraft_resp = requests.get("http://%s/dump1090/data/aircraft.json" % options.host, timeout=10).json()
+    aircraft_resp = requests.get("http://%s/%s/data/aircraft.json" % (options.host, options.path), timeout=10).json()
     flights = aircraft_resp["aircraft"]
     flights = [f for f in flights if "flight" in f and self.flight_num_re.match(f["flight"].strip()) and f["seen"] < 60] 
     def distance(f):
@@ -73,6 +73,10 @@ if __name__ == "__main__":
                       help="The location of the dump1090 server's HTTP interface",
                       required=False,
                       default='localhost')
+  parser.add_argument("-p", '--path',
+                      help="path to dump1090/skyaware (usually 'skyaware' or 'dump1090) ",
+                      required=False,
+                      default="skyaware")        
   parser.add_argument("-a", '--altitude',
                       help="an altitude constraint for aircraft, e.g. '<10000' or '>30000'. In feet. ",
                       required=False,
@@ -84,7 +88,7 @@ if __name__ == "__main__":
   parser.add_argument("-l", '--location',
                       help="Your location, in \"lat,long\" format. E.g. \"40.612345,-73.912345\" ",
                       required=False,
-                      default=None)  
+                      default=None)
   # parser.add_argument('-h', '--help',
   #                     help="Display this screen", )
   args = parser.parse_args()
