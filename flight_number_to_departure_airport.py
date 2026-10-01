@@ -12,7 +12,7 @@ class Flyover:
     "JB": "JBU",
   }
 
-  flight_number_re = re.compile("^([A-Z]+)?(\d+)$")
+  flight_number_re = re.compile(r"^([A-Z]+)?(\d+)$")
 
   @classmethod
   def where(self, options, flight_number, delta_altitude):

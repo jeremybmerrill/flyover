@@ -47,7 +47,7 @@ class Flyover:
       image = Image.new('1', (21, 8))
       draw = ImageDraw.Draw(image)
 
-      for i in xrange(58):
+      for i in range(58):
         n = 5 - abs((i % 12) - 5)
         draw.text((0, 0), airport_code,  font=font, fill=255)
         display.fill(0)
