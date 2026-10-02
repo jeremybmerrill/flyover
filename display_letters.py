@@ -49,7 +49,7 @@ class Flyover:
       draw = ImageDraw.Draw(image)
       draw.text((0, 0), airport_code,  font=font, fill=255)
       if invert:
-        image = image.transpose(Image.FLIP_TOP_BOTTOM)
+        image = image.transpose(Image.ROTATE_180)
 
       for i in range(58):
         n = 5 - abs((i % 12) - 5)
@@ -62,7 +62,7 @@ class Flyover:
       draw = ImageDraw.Draw(image)
       draw.text((0, 0), airport_code,  font=font, fill=255)
       if invert:
-        image = image.transpose(Image.FLIP_TOP_BOTTOM)
+        image = image.transpose(Image.ROTATE_180)
       display.image(image)
       display.show()
 
