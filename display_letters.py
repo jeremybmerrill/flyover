@@ -8,6 +8,7 @@ from adafruit_ht16k33.matrix import Matrix8x8
 import sys
 import os
 import re
+import argparse
 from time import sleep
 
 
@@ -36,7 +37,7 @@ class CorrectlyOrderedMatrix16x8(Matrix8x8):
 class Flyover:
 
   @classmethod
-  def literally_show(self, airport_code):
+  def literally_show(self, airport_code, invert=False):
     i2c = busio.I2C(board.SCL, board.SDA)
     display = CorrectlyOrderedMatrix16x8(i2c)
     display.brightness = 0.4
@@ -46,10 +47,12 @@ class Flyover:
     if len(airport_code) == 4:
       image = Image.new('1', (21, 8))
       draw = ImageDraw.Draw(image)
+      draw.text((0, 0), airport_code,  font=font, fill=255)
+      if invert:
+        image = image.transpose(Image.FLIP_TOP_BOTTOM)
 
       for i in range(58):
         n = 5 - abs((i % 12) - 5)
-        draw.text((0, 0), airport_code,  font=font, fill=255)
         display.fill(0)
         display.image(image.crop((n, 0, n + 16, 8)))
         display.show()        
@@ -58,11 +61,13 @@ class Flyover:
       image = Image.new('1', (16, 8))
       draw = ImageDraw.Draw(image)
       draw.text((0, 0), airport_code,  font=font, fill=255)
+      if invert:
+        image = image.transpose(Image.FLIP_TOP_BOTTOM)
       display.image(image)
       display.show()
 
   @classmethod
-  def show(self, airport):
+  def show(self, airport, invert=False):
     # either in the form of 
     # - KRDU or
     # - CYUL
@@ -78,20 +83,23 @@ class Flyover:
     # in other cases, it displays all four letters in a hacky bouncy way
     us_airport_match = re.match("K([A-Z][A-Z][A-Z])", airport[0:4])
     if us_airport_match:
-      self.literally_show(us_airport_match.groups(0)[0])
+      self.literally_show(us_airport_match.groups(0)[0], invert)
     elif airport[0:1] in ('CY', 'CZ'):
-      self.literally_show(airport[1:4]) # Canada is okay to display as only three letters too!
+      self.literally_show(airport[1:4], invert) # Canada is okay to display as only three letters too!
     elif len(airport) in (4,3,0):
-      self.literally_show(airport)
+      self.literally_show(airport, invert)
     else:
       print("ignoring invalid airport_code input {}".format(airport))
-      self.literally_show('')
+      self.literally_show('', invert)
       return
 
 if __name__ == "__main__":
+  parser = argparse.ArgumentParser()
+  parser.add_argument('--invert', action='store_true', help='flip the displayed image over the horizontal axis')
+  args = parser.parse_args()
   # doesn't support quotes in input because naively splits on whitespace
   # stdin = " ".join(sys.stdin.readlines()).split()
   stdin = ((input() if (sys.version_info > (3, 0)) else raw_input()) or '').split()
   print("displaying: %s" % ','.join(stdin))
-  Flyover.show( stdin[0] if len(stdin) else ''  )
+  Flyover.show(stdin[0] if len(stdin) else '', invert=args.invert)
 
